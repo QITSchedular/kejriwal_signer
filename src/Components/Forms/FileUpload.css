@@ -1,0 +1,11 @@
+#form {
+    max-width: 768px;
+    margin: 50px auto;
+    border: 2px solid red !important;
+    padding: 15px 25px;
+    border-radius: 8px;
+  }
+  .uploader_field{
+    display: flex;
+    justify-content: space-between;
+  }

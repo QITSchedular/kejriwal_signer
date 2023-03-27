@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { FileUpload } from '@mui/icons-material';
+import 'devextreme/dist/css/dx.light.css';
+import SignerForm from './Components/Forms/FileUpload';
+import SignIn from "./Components/Forms/SignIn";
+import {Routes, Route} from "react-router-dom"
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <SignIn /> */}
+      <Routes>
+        <Route exact path='/' element={<SignerForm />} />
+        <Route exact path='/signin' element={<SignIn />} />
+      </Routes>
+      
     </div>
   );
 }

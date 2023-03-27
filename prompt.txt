@@ -1,0 +1,9 @@
+Create a simple react component using devextreme-react
+This component will have a parent container
+There will be a text field with the lable Destination Folder
+and then there will be a button called browse
+so the layout will be like This
+Lable:  Text Field   browse
+When the user will click on the browse, he will be able to choose a folder and the
+chosen folder path will be shown in the Text Field.
+All the elements will be inside a parent container and they will be in one line
