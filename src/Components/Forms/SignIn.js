@@ -11,8 +11,11 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { tokenFetch } from '../../services/FetchData';
+import PageContext from '../../Context/PageContext';
+import { useNavigate } from 'react-router-dom';
+import Loader from '../Loader/Loader';
 
 function Copyright(props) {
   return (
@@ -30,22 +33,39 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [accessToken, setAccessToken] = useState('');
+  const { setToken } = useContext(PageContext);
+  const naviagte = useNavigate();
+  const [loader, setLoader] = useState(false);
 
   const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
-    const response = await tokenFetch(email, password);
-    console.log(response);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
+    try {
+      setLoader(true);
+      const response = await tokenFetch(email, password);
+      if(response.token){
+        setAccessToken(response.token);
+        setToken(response.token);
+        setLoader(false);
+        naviagte('/sendpdf');
+      } else{
+        setLoader(false);
+        
+      }
+    } catch (error) {
+      setLoader(false);
+      console.log(error);
+    }
+    
+
   };
 
   return (
     <ThemeProvider theme={theme}>
+      {loader && <Loader />}
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
