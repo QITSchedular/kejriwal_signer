@@ -33,7 +33,6 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const [accessToken, setAccessToken] = useState('');
   const { setToken } = useContext(PageContext);
   const naviagte = useNavigate();
   const [loader, setLoader] = useState(false);
@@ -47,7 +46,6 @@ export default function SignIn() {
       setLoader(true);
       const response = await tokenFetch(email, password);
       if(response.token){
-        setAccessToken(response.token);
         setToken(response.token);
         setLoader(false);
         naviagte('/sendpdf');

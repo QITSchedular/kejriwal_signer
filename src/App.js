@@ -1,11 +1,10 @@
-import 'devextreme/dist/css/dx.light.css';
 import SignIn from "./Components/Forms/SignIn";
 import {Routes, Route} from "react-router-dom"
 import PdfForm from './Components/Forms/SendToSign/PdfForm';
 import PageContext from './Context/PageContext';
 import { useState } from 'react';
 import Loader from './Components/Loader/Loader';
-
+import "./css/index.css";
 
 function App() {
   const [token, setToken] = useState('');

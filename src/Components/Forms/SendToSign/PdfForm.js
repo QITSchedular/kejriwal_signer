@@ -1,11 +1,13 @@
-import { Box, Button, Container, Grid, Paper, TextField, Typography } from "@mui/material";
+import { AppBar, Box, Button, Container, Grid, Paper, TextField, Typography } from "@mui/material";
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PageContext from "../../../Context/PageContext";
 import { getPdfSignToken, getSignedPdf } from "../../../services/FetchData";
 import Loader from "../../Loader/Loader";
 
 
 function PdfForm() {
+  const naviagte = useNavigate();
     const {token} = useContext(PageContext);
     const [loader, setLoader] = useState(false);
     const [formData, setFormData] = useState({
@@ -18,7 +20,7 @@ function PdfForm() {
     LocPoint3: "0",
     LocPoint4: "50",
     PFXId: "1",
-    signPrintonPage: "1",
+    signPrintonPage: "L",
     Ts: new Date().toISOString(),
   });
 
@@ -53,15 +55,36 @@ function PdfForm() {
     }
     
     const response = await getPdfSignToken(form_data, token);
-    const dSignFileId = await response;
-    console.log(dSignFileId);
-    const url = await getSignedPdf(dSignFileId, token);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'file.pdf');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const {fileId} = await response;
+    
+  const apiUrl = `http://192.168.0.14:5095/api/DSign/GetByFileId?dSignFileId=${fileId}`;
+  try {
+  const response = await fetch(apiUrl, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const pdfBlob = await response.blob();
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  window.open(pdfUrl, '_blank');
+} catch (error) {
+  console.error(error);
+}
+    // console.log(fileId);
+    // const url = await getSignedPdf(fileId, token);
+    // const link =document.createElement('a');
+    // link.href = url;
+    // link.setAttribute('download', 'signed_file.pdf'); 
+    // document.body.appendChild(link);
+    // link.click();
+    // const link = document.createElement('a');
+    // link.href = url;
+    // link.setAttribute('download', 'file.pdf');
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
 //     const signedPdf = async (dSignFileId, token)=>{
 //         const apiUrl = `/api/DSign/GetByFileId?dSignFileId=${dSignFileId}`;
 //   try {
@@ -132,17 +155,22 @@ function PdfForm() {
 
 //   // Add the modal container to the document body
 //   document.body.appendChild(modalContainer);
-    setLoader(false);
+    
+setLoader(false);
+naviagte('/')    
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" style={{backgroundColor:"#DDDDDD"}}>
         {loader && <Loader />}
         <Paper elevation={8} style={{ padding: '20px', boxShadow: '10px 10px 16px 0px rgba(0,0,0,0.75)' }}>
       <Box mt={4} mb={4}>
-        <Typography variant="h4" component="h1" align="center">
-          Form
+        <AppBar position="relative">
+        <Typography variant="h4" component="h1" align="center" py={2}>
+          Fill all the details
         </Typography>
+        </AppBar>
+        
       </Box>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
