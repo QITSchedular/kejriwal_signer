@@ -48,7 +48,7 @@ export default function SignIn() {
       if(response.token){
         setToken(response.token);
         setLoader(false);
-        naviagte('/sendpdf');
+        naviagte('/home');
       } else{
         setLoader(false);
         
@@ -106,6 +106,7 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={"abc@example.com"}
               />
               <TextField
                 margin="normal"
@@ -116,6 +117,7 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value="Admin@123"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

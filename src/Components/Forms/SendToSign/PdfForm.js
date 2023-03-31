@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageContext from "../../../Context/PageContext";
 import { getPdfSignToken, getSignedPdf } from "../../../services/FetchData";
+import ModalBox from "../../Dialogs/ModalBox";
 import Loader from "../../Loader/Loader";
 
 
@@ -10,6 +11,10 @@ function PdfForm() {
   const naviagte = useNavigate();
     const {token} = useContext(PageContext);
     const [loader, setLoader] = useState(false);
+    const [modal, setModal] = useState(false);
+    const [pdfURL, setPdfURL] = useState("");
+
+
     const [formData, setFormData] = useState({
     sourceFile: null,
     FileType: "1",
@@ -68,102 +73,24 @@ function PdfForm() {
 
   const pdfBlob = await response.blob();
   const pdfUrl = URL.createObjectURL(pdfBlob);
-  window.open(pdfUrl, '_blank');
+  //window.open(pdfUrl, '_blank');
+  console.log(pdfUrl);
+  setPdfURL(pdfUrl)
+  setModal(true);
+  // window.open(pdfUrl, '_blank');
 } catch (error) {
   console.error(error);
 }
-    // console.log(fileId);
-    // const url = await getSignedPdf(fileId, token);
-    // const link =document.createElement('a');
-    // link.href = url;
-    // link.setAttribute('download', 'signed_file.pdf'); 
-    // document.body.appendChild(link);
-    // link.click();
-    // const link = document.createElement('a');
-    // link.href = url;
-    // link.setAttribute('download', 'file.pdf');
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-//     const signedPdf = async (dSignFileId, token)=>{
-//         const apiUrl = `/api/DSign/GetByFileId?dSignFileId=${dSignFileId}`;
-//   try {
-//     const response = await fetch(apiUrl, {
-//       method: "GET",
-//       headers: {
-//         Authorization:
-//           `Bearer ${token}`
-//       },
-      
-//     });
-//     console.log(response);
-
-//   } catch (error) {
-//     console.error(`Error fetching data: ${error}`);
-//   }
-//     }
-//     await signedPdf();
-//     const getBlob = await getSignedPdf(dSignFileId, token);
-//     const url = URL.createObjectURL(getBlob);
-//     console.log("URL IS " + url);
-    
-//     // const iframe = document.createElement('iframe');
-//     // iframe.src = url;
-//     // document.body.appendChild(iframe);
-//     setLoader(false);
-//     // Create a modal container
-//   const modalContainer = document.createElement('div');
-//   modalContainer.style.width = '350px';
-//   modalContainer.style.height = '720px';
-//   modalContainer.style.position = 'fixed';
-//   modalContainer.style.top = '50%';
-//   modalContainer.style.left = '50%';
-//   modalContainer.style.transform = 'translate(-50%, -50%)';
-//   modalContainer.style.background = 'rgba(0,0,0,0.8)';
-//   modalContainer.style.borderRadius = '5px';
-//   modalContainer.style.display = 'flex';
-//   modalContainer.style.flexDirection = 'column';
-//   modalContainer.style.justifyContent = 'center';
-//   modalContainer.style.alignItems = 'center';
-//   modalContainer.style.zIndex = '9999';
-
-//   // Create a download button inside the modal container
-//   const downloadButton = document.createElement('a');
-//   downloadButton.href = url;
-//   downloadButton.download = 'pdf_document.pdf';
-//   downloadButton.style.display = 'flex';
-//   downloadButton.style.justifyContent = 'center';
-//   downloadButton.style.alignItems = 'center';
-//   downloadButton.style.width = '200px';
-//   downloadButton.style.height = '50px';
-//   downloadButton.style.background = 'blue';
-//   downloadButton.style.borderRadius = '5px';
-//   downloadButton.style.color = 'white';
-//   downloadButton.style.fontSize = '20px';
-//   downloadButton.style.textDecoration = 'none';
-
-//   // Add a download icon to the button
-//   const downloadIcon = document.createElement('i');
-//   downloadIcon.className = 'material-icons';
-//   downloadIcon.style.fontSize = '25px';
-//   downloadIcon.style.marginRight = '10px';
-//   downloadIcon.innerText = 'get_app';
-//   downloadButton.appendChild(downloadIcon);
-
-//   // Add the button to the modal container
-//   modalContainer.appendChild(downloadButton);
-
-//   // Add the modal container to the document body
-//   document.body.appendChild(modalContainer);
-    
+   
 setLoader(false);
-naviagte('/')    
+// naviagte('/')    
   };
 
   return (
-    <Container maxWidth="sm" style={{backgroundColor:"#DDDDDD"}}>
+    <Container maxWidth="sm" style={{backgroundColor:"#DDDDDD", marginTop:"20px"}}>
         {loader && <Loader />}
-        <Paper elevation={8} style={{ padding: '20px', boxShadow: '10px 10px 16px 0px rgba(0,0,0,0.75)' }}>
+        {modal && <ModalBox urlBlob={pdfURL}/>}
+        <Paper elevation={24} style={{ padding: '20px'}}>
       <Box mt={4} mb={4}>
         <AppBar position="relative">
         <Typography variant="h4" component="h1" align="center" py={2}>
