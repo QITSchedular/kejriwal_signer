@@ -8,6 +8,7 @@ import "./css/index.css";
 import Banner from "./Pages/BannerPaper";
 import Navbar from "./Pages/Nabvar";
 import Homepage from "./Pages/Homepage";
+import PdfLists from "./Components/PdfLists/PdfLists";
 
 function App() {
   const [token, setToken] = useState('');
@@ -24,6 +25,7 @@ function App() {
         <Route path='/sendpdf' element={<PdfForm />} />
         <Route path='/loader' element={<Loader />} />
         <Route path='/banner' element={<Banner />} />
+        <Route path='/pdflists' element={<PdfLists />} />
       </Routes>
         
       </PageContext.Provider>

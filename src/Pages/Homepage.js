@@ -5,9 +5,25 @@ import Container from '@mui/material/Container';
 import ComponentCard from '../Components/Card/ComponentCard';
 import Banner from './BannerPaper';
 import { useNavigate } from 'react-router-dom';
-
+import sign_form from "../assets/sign-form.png";
+import table from "../assets/table.png";
+import search from "../assets/search.png";
+import { Typography } from '@mui/material';
+import Link from '@mui/material/Link';
 const Homepage = () => {
     const navigate = useNavigate();
+    function Copyright(props) {
+      return (
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+          {'Copyright © '}
+          <Link color="inherit" href="https://mui.com/">
+            Your Website
+          </Link>{' '}
+          {new Date().getFullYear()}
+          {'.'}
+        </Typography>
+      );
+    }
   return (
     <React.Fragment>
       <CssBaseline />
@@ -23,7 +39,7 @@ const Homepage = () => {
         <Box>
             <Banner></Banner>
         </Box>
-        <Box style={{
+        <Box sx={{
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -31,25 +47,29 @@ const Homepage = () => {
             marginTop:"20px"
         }}>
         <ComponentCard 
-            image="https://source.unsplash.com/random/345x140"
-            title="Card 1"
+            image={sign_form}
+            title="Sign a Pdf"
             route="/sendpdf"
             onClick={() => console.log("Card 1 clicked")}
+            body="Click here to sign the pdf, you can either view or download the pdf, make sure all the fieldsare filled."
           />
           <ComponentCard 
-            image="https://source.unsplash.com/random/346x140"
+            image={search}
             title="Card 2"
             route="/helloreact"
             onClick={() => console.log("Card 2 clicked")}
+            body="Do you have a pdf id, click on here and add the id and get the pdf."
           />
           <ComponentCard 
-            image="https://source.unsplash.com/random/347x140"
-            title="Card 3"
-            route="/hellomui"
+            image={table}
+            title="List of all Pdfs"
+            route="/pdflists"
             onClick={() => console.log("Card 3 clicked")}
+            body="Click here to view the list of all the pdfs."
           />          
         </Box>
       </Container>
+      <Copyright sx={{ mt: 5 }} />
     </React.Fragment>
      )      
 }

@@ -1,5 +1,5 @@
 import { AppBar, Box, Button, Container, Grid, Paper, TextField, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageContext from "../../../Context/PageContext";
 import { getPdfSignToken, getSignedPdf } from "../../../services/FetchData";
@@ -58,7 +58,7 @@ function PdfForm() {
     for (const [key, value] of Object.entries(formData)) {
       form_data.append(key, value);
     }
-    
+    // console.log(form_data);
     const response = await getPdfSignToken(form_data, token);
     const {fileId} = await response;
     
@@ -83,8 +83,11 @@ function PdfForm() {
 }
    
 setLoader(false);
-// naviagte('/')    
-  };
+// naviagte('/');
+};
+useEffect(()=>{
+  setModal(false);
+},[])    
 
   return (
     <Container maxWidth="sm" style={{backgroundColor:"#DDDDDD", marginTop:"20px"}}>
@@ -240,6 +243,7 @@ setLoader(false);
                 variant="outlined"
                 value={formData.Ts}
                 onChange={handleTextChange}
+                disabled={true}
               />
             </Box>
           </Grid>

@@ -6,19 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
-import Draggable from 'react-draggable';
 import { useNavigate } from 'react-router-dom';
 
-function PaperComponent(props) {
-  return (
-    <Draggable
-      handle="#draggable-dialog-title"
-      cancel={'[class*="MuiDialogContent-root"]'}
-    >
-      <Paper {...props} />
-    </Draggable>
-  );
-}
 
 export default function ModalBox({urlBlob}) {
     console.log(urlBlob);
@@ -28,24 +17,24 @@ export default function ModalBox({urlBlob}) {
 //     setOpen(true);
 //   };
 const handleConfirm = async() => {
-    await window.open(urlBlob, '_blank');
+  setOpen(false);   
+  window.open(urlBlob, '_blank');
     
 }
 const handleClose = () => {
     console.log("close");
-setOpen(false);
+    setOpen(false);
 };
 React.useEffect(() => {
     setOpen(true);
-},[])
+},[urlBlob])
 
   return (
     <div>
       <Dialog
         open={open}
         onClose={handleClose}
-        PaperComponent={PaperComponent}
-        aria-labelledby="draggable-dialog-title"
+         aria-labelledby="draggable-dialog-title"
       >
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
           Download Pdf ?
