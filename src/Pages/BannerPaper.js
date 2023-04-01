@@ -23,8 +23,6 @@ export default function Banner() {
   return (
     <BannerContainer>
       <BannerPaper>
-        {/* add any text or other components here */}
-        Hello there
       </BannerPaper>
     </BannerContainer>
   );

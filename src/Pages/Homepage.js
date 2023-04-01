@@ -55,17 +55,17 @@ const Homepage = () => {
           />
           <ComponentCard 
             image={search}
-            title="Card 2"
+            title="Looking for a particlular document ?"
             route="/helloreact"
             onClick={() => console.log("Card 2 clicked")}
-            body="Do you have a pdf id, click on here and add the id and get the pdf."
+            body="Looking for a particular pdf...? Get the document id and click here, make sure is the correct one..."
           />
           <ComponentCard 
             image={table}
             title="List of all Pdfs"
             route="/pdflists"
             onClick={() => console.log("Card 3 clicked")}
-            body="Click here to view the list of all the pdfs."
+            body="All you signed pdfs in one place, go check them out..."
           />          
         </Box>
       </Container>
