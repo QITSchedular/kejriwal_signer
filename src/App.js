@@ -15,7 +15,6 @@ function App() {
   const isLoggedIn = token !== '';
   return (
     <div className="App">
-      {/* <SignIn /> */}
       {isLoggedIn && <Navbar />}
       <PageContext.Provider value={{ token, setToken }}>
       

@@ -53,13 +53,13 @@ const Homepage = () => {
             onClick={() => console.log("Card 1 clicked")}
             body="Click here to sign the pdf, you can either view or download the pdf, make sure all the fieldsare filled."
           />
-          <ComponentCard 
+          {/* <ComponentCard 
             image={search}
             title="Looking for a particlular document ?"
             route="/helloreact"
             onClick={() => console.log("Card 2 clicked")}
             body="Looking for a particular pdf...? Get the document id and click here, make sure is the correct one..."
-          />
+          /> */}
           <ComponentCard 
             image={table}
             title="List of all Pdfs"
