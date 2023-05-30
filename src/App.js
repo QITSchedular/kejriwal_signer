@@ -5,7 +5,8 @@ import PdfForm from './Components/Forms/SendToSign/PdfForm';
 import PageContext from './Context/PageContext';
 import { useState } from 'react';
 import Loader from './Components/Loader/Loader';
-
+import Checkout from './Layouts/Checkout/Checkout';
+import SignUp from './Layouts/Authentication/Signup';
 
 function App() {
   const [token, setToken] = useState('');
@@ -15,8 +16,10 @@ function App() {
       <PageContext.Provider value={{ token, setToken }}>
       <Routes>
         <Route exact path='/' element={<SignIn />} />
+        <Route exact path='/signup' element={<SignUp />} />
         <Route path='/sendpdf' element={<PdfForm />} />
         <Route path='/loader' element={<Loader />} />
+        <Route path='/checkout' element={<Checkout />} />
       </Routes>
       </PageContext.Provider>
     </div>

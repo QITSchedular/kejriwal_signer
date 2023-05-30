@@ -20,6 +20,7 @@ function PdfForm() {
     PFXId: "1",
     signPrintonPage: "1",
     Ts: new Date().toISOString(),
+    AutoFileId: "Y"
   });
 
   const handleFileChange = (event) => {
@@ -49,12 +50,12 @@ function PdfForm() {
     setLoader(true);
     const form_data = new FormData();
     for (const [key, value] of Object.entries(formData)) {
-      form_data.append(key, value);
+      await form_data.append(key, value);
     }
     
     const response = await getPdfSignToken(form_data, token);
     const dSignFileId = await response;
-    console.log(dSignFileId);
+    console.log("Got the file id",dSignFileId);
     const url = await getSignedPdf(dSignFileId, token);
     const link = document.createElement('a');
     link.href = url;
