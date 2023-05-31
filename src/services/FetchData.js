@@ -1,7 +1,5 @@
-//use in local files
-// export const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 // At kejriwal server
-export const REACT_APP_API_URL = "http://192.168.0.14:5095";
+// export const REACT_APP_API_URL = "http://192.168.0.14:5095";
 
 //User Registration
 export const registerUser = async (data) => {
@@ -16,6 +14,7 @@ export const registerUser = async (data) => {
   const userObject = {
     firstName,
     lastName,
+    userName,
     email,
     password,
     confirmPassword,
@@ -39,7 +38,7 @@ export const registerUser = async (data) => {
       }),
     });
     const data = await response.json();
-    console.log(data);
+    console.log("Signup api response", data);
     return data;
   } catch (error) {
     console.error(error);
@@ -84,9 +83,9 @@ export const getPdfSignToken = async (formData, token) => {
       throw new Error(`Failed to fetch data (${response.status})`);
     }
 
-    const data = await response.text();
-    const jsonResponse = await JSON.parse(data);
-    const fileId = jsonResponse.fileId;
+    const data = await response.json();
+
+    const fileId = data.fileId;
     return fileId;
     // const data2 = await response.json();
     // console.log(data2)

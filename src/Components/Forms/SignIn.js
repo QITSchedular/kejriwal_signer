@@ -4,7 +4,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+// import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -16,7 +17,7 @@ import { tokenFetch } from "../../services/FetchData";
 import PageContext from "../../Context/PageContext";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
-
+import "./signin.css";
 function Copyright(props) {
   return (
     <Typography
@@ -26,8 +27,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link className="routing-links" to="https://www.qitsolution.co.in">
+        Quantum It Solution
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -142,12 +143,12 @@ export default function SignIn() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link to="#" className="routing-links">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/signup" variant="body2">
+                  <Link to="/signup" className="routing-links">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

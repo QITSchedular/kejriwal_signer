@@ -1,15 +1,14 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-#main-container{
-    background-image: url("./signup-full-bg.jpg");
-    background-repeat: no-repeat;
+#main-container {
+  background-image: url("./signup-full-bg.jpg");
+  background-repeat: no-repeat;
 }
 #container {
   border-radius: 50px;
   background: whitesmoke;
   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-  
 }

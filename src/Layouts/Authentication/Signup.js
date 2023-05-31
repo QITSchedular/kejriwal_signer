@@ -17,6 +17,7 @@ import { Alert, Snackbar } from "@mui/material";
 import { validateForm } from "./registrationValidation";
 import { registerUser } from "../../services/FetchData";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../Components/Loader/Loader";
 
 function Copyright(props) {
   return (
@@ -28,7 +29,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://qitsolution.co.in/">
-        Your Website
+        Quantum It Solution
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -42,6 +43,7 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const [loading, setLoading] = React.useState(false);
   const [errors, setErrors] = React.useState({});
   const [snackShow, setSetSnackShow] = React.useState(false);
   const [snackbar, setSnackbar] = React.useState({
@@ -55,10 +57,12 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
 
     const errors = await validateForm(data);
+    setLoading(true);
     if (errors.isError === true) {
       // There are errors, update state
       setErrors(errors);
       setSnackbar({ open: true, color: "error", message: errors.error });
+      setLoading(false);
     } else {
       const response = await registerUser(data);
       if (response.success === true) {
@@ -66,26 +70,32 @@ export default function SignUp() {
         setSnackbar({
           open: true,
           color: "success",
-          message: `Sucessfully registered`,
+          message: `Registration successful, proceed to login`,
         });
+        setLoading(false);
         setSetSnackShow(true);
-        return navigate("/");
+        setTimeout(() => {
+          return navigate("/");
+        }, 3000);
         // await setSnackbar({ open: true, color: 'success', message: response.error });
       } else {
         let errmsg = await response.error;
+        setLoading(false);
         await setSnackbar({
           open: true,
           color: "error",
-          message: response.error,
+          message: "Please, check all the details, and try again",
         });
-        setSetSnackShow(true);
+        return await setSetSnackShow(true);
       }
     }
+    setLoading(false);
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container="main" id="main-container">
+      {loading && <Loader />}
+      <Grid container="main" sx={{ height: "100vh" }} id="main-container">
         <Container
           component="main"
           maxWidth="xs"
@@ -182,7 +192,7 @@ export default function SignUp() {
               {Object.keys(errors).length > 0 && (
                 <Snackbar
                   open={snackbar.open}
-                  autoHideDuration={6000}
+                  autoHideDuration={4000}
                   onClose={() => setSnackbar({ ...snackbar, open: false })}
                   anchorOrigin={{ vertical: "top", horizontal: "right" }}
                 >
