@@ -18,6 +18,7 @@ import PageContext from "../../Context/PageContext";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import "./signin.css";
+import backImg from "./digital-signatures.jpeg";
 function Copyright(props) {
   return (
     <Typography
@@ -71,22 +72,9 @@ export default function SignIn() {
       {loader && <Loader />}
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage: "url(https://source.unsplash.com/random)",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+        <Grid item xs={false} sm={4} md={7} id="image-grid">
+          <img src={backImg} id="back-img" alt="bac-img" />
+        </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
