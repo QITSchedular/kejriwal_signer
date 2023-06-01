@@ -1,5 +1,5 @@
 {
-  "homepage": "http://localhost:3000/digisigner/",
+  "homepage": "http://localhost:9113/digisigner/",
   "name": "digisigner",
   "version": "0.1.0",
   "private": true,

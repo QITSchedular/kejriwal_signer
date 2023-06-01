@@ -95,11 +95,11 @@ export default function SignUp() {
   return (
     <ThemeProvider theme={defaultTheme}>
       {loading && <Loader />}
-      <Grid container="main" sx={{ height: "100vh" }} id="main-container">
+      <Grid container="main" id="main-container">
         <Container
           component="main"
           maxWidth="xs"
-          id="container"
+          id="components-wrapper"
           sx={{ marginTop: 5, marginBottom: 5 }}
         >
           <CssBaseline />
@@ -120,10 +120,10 @@ export default function SignUp() {
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              sx={{ mt: 3 }}
+              sx={{ mt: 2 }}
             >
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+              <Grid container spacing={1}>
+                <Grid item xs={10} sm={8} md={5}>
                   <TextField
                     autoComplete="given-name"
                     name="firstName"
@@ -214,20 +214,26 @@ export default function SignUp() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 2, mb: 1 }}
               >
                 Sign Up
               </Button>
-              <Grid container justifyContent="flex-end">
+              <Grid
+                container
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
                 <Grid item>
-                  <Link href="/" variant="body2">
+                  <Link href="/digisigner" variant="body2">
                     Already have an account? Sign in
                   </Link>
                 </Grid>
               </Grid>
             </Box>
           </Box>
-          <Copyright sx={{ mt: 5 }} />
+          <Copyright sx={{ mt: 2, mb: 3 }} />
         </Container>
       </Grid>
     </ThemeProvider>
