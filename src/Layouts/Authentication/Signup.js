@@ -62,11 +62,10 @@ export default function SignUp() {
       // There are errors, update state
       setErrors(errors);
       setSnackbar({ open: true, color: "error", message: errors.error });
-      setLoading(false);
+      return setLoading(false);
     } else {
       const response = await registerUser(data);
       if (response.success === true) {
-        // alert(response.error)
         setSnackbar({
           open: true,
           color: "success",
@@ -84,7 +83,7 @@ export default function SignUp() {
         await setSnackbar({
           open: true,
           color: "error",
-          message: "Please, check all the details, and try again",
+          message: errmsg,
         });
         return await setSetSnackShow(true);
       }
@@ -122,8 +121,8 @@ export default function SignUp() {
               onSubmit={handleSubmit}
               sx={{ mt: 2 }}
             >
-              <Grid container spacing={1}>
-                <Grid item xs={10} sm={8} md={5}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     autoComplete="given-name"
                     name="firstName"
@@ -173,6 +172,7 @@ export default function SignUp() {
                     type="password"
                     id="password"
                     autoComplete="new-password"
+                    placeholder="At least 6 characters"
                   />
                 </Grid>
                 <Grid item xs={12}>

@@ -3,7 +3,6 @@
 
 //User Registration
 export const registerUser = async (data) => {
-  console.log(data);
   const firstName = data.get("firstName");
   const lastName = data.get("lastName");
   const userName = data.get("userName");
@@ -11,15 +10,7 @@ export const registerUser = async (data) => {
   const password = data.get("password");
   const confirmPassword = data.get("confirmPassword");
   const ts = new Date().toISOString();
-  const userObject = {
-    firstName,
-    lastName,
-    userName,
-    email,
-    password,
-    confirmPassword,
-    ts,
-  };
+
   const apiUrl = "http://192.168.0.14:5095/api/Customers/signup";
   try {
     const response = await fetch(apiUrl, {
@@ -37,6 +28,7 @@ export const registerUser = async (data) => {
         ts: "2022-12-14T08:41:07.540Z",
       }),
     });
+
     const data = await response.json();
     console.log("Signup api response", data);
     return data;

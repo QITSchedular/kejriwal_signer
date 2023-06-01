@@ -73,7 +73,7 @@ export default function SignIn() {
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} id="image-grid">
-          <img src={backImg} id="back-img" alt="bac-img" />
+          {/* <img src={backImg} id="back-img" alt="bac-img" /> */}
         </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
