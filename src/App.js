@@ -7,6 +7,7 @@ import { useState } from "react";
 import Loader from "./Components/Loader/Loader";
 import Checkout from "./Layouts/Checkout/Checkout";
 import SignUp from "./Layouts/Authentication/Signup";
+import NavBar from "./Components/Navbar/Navbar";
 
 function App() {
   const [token, setToken] = useState("");
@@ -20,6 +21,8 @@ function App() {
           <Route path="/sendpdf" element={<PdfForm />} />
           <Route path="/loader" element={<Loader />} />
           <Route path="/checkout" element={<Checkout />} />
+          {/* testNavbar */}
+          {/* <Route path="/navbar" element={<NavBar />} /> */}
         </Routes>
       </PageContext.Provider>
     </div>

@@ -19,6 +19,10 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import "./signin.css";
 import backImg from "./digital-signatures.jpeg";
+import { validateSignInData } from "./signinValidation";
+import CustomSnackbar from "./CustomSnackbar";
+import { handleTokenResponse } from "../../services/auth";
+
 function Copyright(props) {
   return (
     <Typography
@@ -41,41 +45,84 @@ const theme = createTheme();
 
 export default function SignIn() {
   const [accessToken, setAccessToken] = useState("");
-  const { setToken } = useContext(PageContext);
+  // const { setToken } = useContext(PageContext);
   const naviagte = useNavigate();
   const [loader, setLoader] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
+    const errors = validateSignInData(email, password);
+
+    if (Object.keys(errors).length > 0) {
+      setSnackbarMessage(Object.values(errors)[0]);
+      setSnackbarOpen(true);
+      return;
+    }
+
+    // Proceed with the API call and other logic if the data is valid
+
     try {
       setLoader(true);
       const response = await tokenFetch(email, password);
       if (response.token) {
-        setAccessToken(response.token);
-        setToken(response.token);
+        // setAccessToken(response.token);
+        // setToken(response.token);
         setLoader(false);
+        //set the token
+        handleTokenResponse(response);
+
         naviagte("/sendpdf");
       } else {
         setLoader(false);
+        setSnackbarMessage("Invalid email or password");
+        setSnackbarOpen(true);
+        return;
       }
     } catch (error) {
       setLoader(false);
+      setSnackbarMessage("Something went wrong, please try again later");
+      setSnackbarOpen(true);
       console.log(error);
+      return;
     }
   };
 
   return (
     <ThemeProvider theme={theme}>
       {loader && <Loader />}
+      <CustomSnackbar
+        open={snackbarOpen}
+        message={snackbarMessage}
+        handleClose={handleSnackbarClose}
+      />
+
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} id="image-grid">
+        <Grid
+          item
+          xs={false}
+          sm={6}
+          md={7}
+          sx={{
+            backgroundColor: (t) =>
+              t.palette.mode === "light"
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+          }}
+          id="image-grid"
+        >
           {/* <img src={backImg} id="back-img" alt="bac-img" /> */}
         </Grid>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={6} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,
@@ -91,15 +138,10 @@ export default function SignIn() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
-            >
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
-                margin="normal"
                 required
+                margin="normal"
                 fullWidth
                 id="email"
                 label="Email Address"
@@ -108,8 +150,8 @@ export default function SignIn() {
                 autoFocus
               />
               <TextField
-                margin="normal"
                 required
+                margin="normal"
                 fullWidth
                 name="password"
                 label="Password"

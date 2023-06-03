@@ -1,6 +1,7 @@
 .routing-links {
   color: #1976d2;
   text-decoration: none;
+  font-size: 14px;
 }
 #image-grid {
   background-image: url("./digital-signatures.jpeg");

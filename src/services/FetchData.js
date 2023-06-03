@@ -62,6 +62,9 @@ export const tokenFetch = async (email, password) => {
 export const getPdfSignToken = async (formData, token) => {
   // console.log(formData,token);
   // const apiUrl = "/api/DSign/DocSignBinary";
+  const formDataObject = Object.fromEntries(formData.entries());
+  console.log(formDataObject);
+  console.log(token);
   const apiUrl = "http://192.168.0.14:5095/api/DSign/DocSignBinary";
   try {
     const response = await fetch(apiUrl, {
