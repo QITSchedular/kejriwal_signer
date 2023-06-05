@@ -103,6 +103,7 @@ export default function SignIn() {
         open={snackbarOpen}
         message={snackbarMessage}
         handleClose={handleSnackbarClose}
+        severity={"error"}
       />
 
       <Grid container component="main" sx={{ height: "100vh" }}>

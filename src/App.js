@@ -16,9 +16,9 @@ function App() {
       {/* <SignIn /> */}
       <PageContext.Provider value={{ token, setToken }}>
         <Routes>
-          <Route exact path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/sendpdf" element={<PdfForm />} />
+          <Route exact path="/" element={<SignIn />} />
           <Route path="/loader" element={<Loader />} />
           <Route path="/checkout" element={<Checkout />} />
           {/* testNavbar */}

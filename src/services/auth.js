@@ -3,6 +3,7 @@ export const handleTokenResponse = (response) => {
   // Assuming the response contains the token
   const accessToken = response.token;
   const expirationTime = new Date().getTime() + 15 * 60 * 1000; // 15 minutes validity
+  // const expirationTime = new Date().getTime() + 10000; // 15 minutes validity
   const tokenData = {
     accessToken,
     expirationTime,

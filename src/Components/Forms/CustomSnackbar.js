@@ -4,21 +4,28 @@ import React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
-const CustomSnackbar = ({ open, message, handleClose }) => {
+const CustomSnackbar = ({
+  open,
+  message,
+  handleClose,
+  severity,
+  verticalPosition,
+  horizontalPosition,
+}) => {
   return (
     <Snackbar
       open={open}
       autoHideDuration={5000}
       onClose={handleClose}
       anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "right",
+        vertical: verticalPosition ? verticalPosition : "bottom",
+        horizontal: horizontalPosition ? horizontalPosition : "right",
       }}
     >
       <MuiAlert
         elevation={6}
         variant="filled"
-        severity="error"
+        severity={severity}
         onClose={handleClose}
       >
         {message}

@@ -15,6 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../services/auth";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 const pages = ["Products", "Pricing", "Blog"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -107,7 +108,8 @@ function NavBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
+                <ExitToAppIcon sx={{ color: "white" }} />
               </IconButton>
             </Tooltip>
             <Menu

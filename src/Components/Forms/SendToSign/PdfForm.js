@@ -14,12 +14,20 @@ import Loader from "../../Loader/Loader";
 import { extractToken, isTokenExpired } from "../../../services/auth";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Navbar/Navbar";
+import CustomSnackbar from "../CustomSnackbar";
 
 function PdfForm() {
   // const { token } = useContext(PageContext);
   const [token, setToken] = useState("");
   const [loader, setLoader] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [popup, setPopup] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     sourceFile: null,
@@ -87,10 +95,12 @@ function PdfForm() {
       return navigate("/");
     }
     setToken(extractToken());
+    setSnackbarOpen(true);
     const timeout = setTimeout(() => {
       localStorage.removeItem("accessToken");
       return navigate("/");
     }, 900000);
+    // use 900000
 
     return () => clearTimeout(timeout);
   }, []);
@@ -101,7 +111,7 @@ function PdfForm() {
       <Container
         maxWidth="sm"
         sx={{
-          marginTop: "2rem",
+          marginTop: "5rem",
         }}
       >
         {loader && <Loader />}
@@ -272,6 +282,20 @@ function PdfForm() {
           </form>
         </Paper>
       </Container>
+      {snackbarOpen && (
+        <>
+          <CustomSnackbar
+            open={snackbarOpen}
+            message={
+              "This session is valid for 15 minutes.. You will be automatically logged out after 15 minutes"
+            }
+            handleClose={handleSnackbarClose}
+            severity={"warning"}
+            verticalPosition={"top"}
+            horizontalPosition={"right"}
+          />
+        </>
+      )}
     </>
   );
 }
